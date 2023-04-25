@@ -1,0 +1,6 @@
+name: Linky
+version: '${project.version}'
+main: com.github.linkymc.Linky
+api-version: 1.19
+authors: [ Aroze, Astrid ]
+website: linky.astrid.sh
