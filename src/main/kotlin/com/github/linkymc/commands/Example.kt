@@ -3,8 +3,11 @@
 package com.github.linkymc.commands
 
 import me.honkling.commando.lib.Command
+import net.kyori.adventure.text.minimessage.MiniMessage
 import org.bukkit.entity.Player
 
 fun example(executor: Player) {
-    executor.sendMessage("hello world!")
+    val mm = MiniMessage.miniMessage()
+
+    executor.sendMessage(mm.deserialize("<rainbow>this works!!!</rainbow>"))
 }
