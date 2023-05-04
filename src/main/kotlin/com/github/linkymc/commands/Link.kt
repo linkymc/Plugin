@@ -1,29 +1,31 @@
 @file:Command(
-    "book",
+    "link",
     permission = "linky.link"
 )
 
 package com.github.linkymc.commands
 
+import com.github.linkymc.lib.generateRandomString
 import com.github.linkymc.lib.getMessage
-import me.aroze.arozeutils.minecraft.generic.centerTextToChat
-import me.aroze.arozeutils.minecraft.generic.coloured
+import me.aroze.arozeutils.kotlin.extension.replacePlaceholders
 import me.honkling.commando.lib.Command
 import net.kyori.adventure.inventory.Book
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.minimessage.MiniMessage
 import org.bukkit.entity.Player
 
-fun book(executor: Player) {
+fun link(executor: Player) {
     val mm = MiniMessage.miniMessage()
 
     val lines = getMessage("lines") ?: "Invalid lines"
 
-    val bookPages: MutableList<Component> = mutableListOf(
-        mm.deserialize(lines.coloured())
+    val placeholders = hashMapOf(
+        "code" to generateRandomString(),
     )
 
-    executor.sendMessage(centerTextToChat(lines))
+    val bookPages: MutableList<Component> = mutableListOf(
+        mm.deserialize(lines.replacePlaceholders(placeholders))
+    )
 
     val myBook: Book = Book.book(
         mm.deserialize("<aqua>Linking Book"),
