@@ -1,5 +1,7 @@
 package com.github.linkymc;
 
+import com.github.linkymc.lib.getMessage
+import com.github.linkymc.lib.mm
 import com.pusher.client.Pusher
 import com.pusher.client.PusherOptions
 import me.aroze.arozeutils.minecraft.FancyPlugin
@@ -8,6 +10,7 @@ import java.io.File
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
+import org.bukkit.Bukkit
 
 
 class Linky : FancyPlugin() {
@@ -16,10 +19,8 @@ class Linky : FancyPlugin() {
     }
 
     @Serializable
-    data class SuccessfulLinkResponse(
-        val event: String,
-        val data: String,
-        val channel: String,
+    data class LinkRequest(
+        val username: String
     )
 
     override fun onEnable() {
@@ -28,10 +29,10 @@ class Linky : FancyPlugin() {
         instance = this
 
         // Creates messages.toml
-        val messages = File(dataFolder, "book.toml")
+        val messages = File(dataFolder, "messages.toml")
         if (!messages.exists()) {
             messages.parentFile.mkdirs()
-            saveResource("book.toml", false)
+            saveResource("messages.toml", false)
         }
 
         val commandManager = CommandManager(instance)
@@ -44,10 +45,27 @@ class Linky : FancyPlugin() {
         pusher.connect()
 
         val channel = pusher.subscribe(config.getString("token"))
-        channel.bind("successful-verify") { event ->
-            val response: SuccessfulLinkResponse = Json.decodeFromString(event.data)
+
+        channel.bind("link-request") { event ->
+            val response: LinkRequest = Json.decodeFromString(event.data)
 
             logger.info("Received event with data: $response")
+
+            val player = Bukkit.getPlayer(response.username)
+
+            if(player === null) {
+                logger.info("Received link request for ${response.username}, however, they were not online.")
+                return@bind
+            }
+
+            val linkMsg = getMessage("linkRequest")
+
+            if(linkMsg === null) {
+                logger.info("Link request message is null! Please provide one.")
+                return@bind
+            }
+
+            player.sendMessage(linkMsg.mm())
         }
     }
 }
