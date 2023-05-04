@@ -45,7 +45,7 @@ class Linky : FancyPlugin() {
 
         val channel = pusher.subscribe(config.getString("token"))
         channel.bind("successful-verify") { event ->
-            val response: SuccessfulLinkResponse = Json.decodeFromString(event.data.toString())
+            val response: SuccessfulLinkResponse = Json.decodeFromString(event.data)
 
             logger.info("Received event with data: $response")
         }

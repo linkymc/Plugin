@@ -1,4 +1,7 @@
 lines = """
-<#d993ab><bold>Discord Linking
-<#9c6e7e><st>                        <reset>\n\n
+\n
+   <#d993ab><bold>Discord Linking\n<reset>
+
+
+        <#b58193>» <#d99ab0><u><hover:show_text:'<#ffd4e3><i>Click to copy!'><click:copy_to_clipboard:{code}>{code}</click></u> <#b58193>«
 """
