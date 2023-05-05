@@ -14,7 +14,8 @@ object LinkRequest {
     @Serializable
     data class LinkRequest(
         val username: String,
-        val discordName: String
+        val discordName: String,
+        val sessionId: String
     )
 
     private val logger = Linky.instance.logger
@@ -27,7 +28,13 @@ object LinkRequest {
     }
 
     private fun linkRequest(event: PusherEvent) {
-        val response: LinkRequest = Json.decodeFromString(event.data)
+        val response: LinkRequest;
+
+        try {
+            response = Json.decodeFromString(event.data)
+        } catch (e: Exception) {
+            throw Exception("Plugin is out of date! Some Linky data changed within the server. Please re-download :)")
+        }
 
         logger.info("Received event with data: $response")
 
@@ -47,6 +54,7 @@ object LinkRequest {
 
         linkMsg = linkMsg.replacePlaceholders(hashMapOf(
             "username" to response.discordName,
+            "sessionId" to response.sessionId
         ))
 
         player.sendMessage(linkMsg.mm())

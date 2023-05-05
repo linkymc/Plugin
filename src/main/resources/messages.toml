@@ -1,5 +1,5 @@
 linkRequest = """
 
 <#ffd4e3>{username} requested to link this account.
-<#9beba7><hover:show_text:'<#ffd4e3><i>Click to approve'><click:run_command:/link accept {sessionId}>[Approve]</click></#9beba7> <#ffd4e3>|<#ff697b> <hover:show_text:'<#ffd4e3><i>Click to deny'>[Deny]
+<#9beba7><hover:show_text:'<#ffd4e3><i>Click to approve'><click:run_command:/link accept {sessionId}>[Approve]</click></#9beba7> <#ffd4e3>|<#ff697b> <hover:show_text:'<#ffd4e3><i>Click to deny'><click:run_command:/link deny {sessionId}>[Deny]</click>
 """
