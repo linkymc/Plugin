@@ -1,5 +1,16 @@
+# Linky Messages
+
+# This file includes nearly all of the messages within Linky.
+# Linky uses leverages MiniMessage, so everything in here is completely customizable.
+
 linkRequest = """
 
-<#ffd4e3>{username} requested to link this account.
-<#9beba7><hover:show_text:'<#ffd4e3><i>Click to approve'><click:run_command:/link accept {sessionId}>[Approve]</click></#9beba7> <#ffd4e3>|<#ff697b> <hover:show_text:'<#ffd4e3><i>Click to deny'><click:run_command:/link deny {sessionId}>[Deny]</click>
+<gray>((</gray> <#82a9ce>{username}<#bfdefb> requested to link their Discord <gray>))
+
+<#bffbdb><hover:show_text:'<#ffd4e3><i>Click to approve'><click:run_command:/link accept {sessionId}>✔ Yup that's my account </click><gray>| <#fbcebf><hover:show_text:'<#ffd4e3><i>Click to deny'><click:run_command:/link deny {sessionId}>✗ Not my account</click>
+
+<gray>((</gray> <#7f92a3><i>Not you? Click no to halt future requests from this user <gray>))
 """
+
+linkAccept = "<#bffbdb>✔ Successfully linked your Discord account!"
+linkDeny = "<#ff697b>✗ Successfully denied! This account won't annoy you anymore."
