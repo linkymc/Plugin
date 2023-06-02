@@ -1,11 +1,13 @@
-package com.github.linkymc;
+package com.github.linkymc
 
+import ch.njol.skript.Skript
 import com.github.linkymc.ws.LinkRequest
 import com.pusher.client.Pusher
 import com.pusher.client.PusherOptions
 import com.pusher.client.channel.Channel
 import me.aroze.arozeutils.minecraft.FancyPlugin
 import me.honkling.commando.CommandManager
+import org.bukkit.Bukkit
 import java.io.File
 
 class Linky : FancyPlugin() {
@@ -16,6 +18,7 @@ class Linky : FancyPlugin() {
 
     override fun onEnable() {
         saveDefaultConfig()
+        val pluginManager = Bukkit.getPluginManager()
 
         instance = this
 
@@ -43,5 +46,13 @@ class Linky : FancyPlugin() {
 
         // Registers socket events
         LinkRequest
+
+        // Skript integration
+        if (!pluginManager.isPluginEnabled("Skript")) return
+
+        logger.info("Detected Skript! Registering syntax.")
+
+        val addon = Skript.registerAddon(this)
+        addon.loadClasses("com.github.linkymc", "skript")
     }
 }
