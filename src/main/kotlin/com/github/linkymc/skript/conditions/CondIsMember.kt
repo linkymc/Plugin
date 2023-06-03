@@ -5,6 +5,7 @@ import ch.njol.skript.lang.Condition
 import ch.njol.skript.lang.Expression
 import ch.njol.skript.lang.SkriptParser
 import ch.njol.util.Kleenean
+import com.github.linkymc.lib.API
 import org.bukkit.entity.Player
 import org.bukkit.event.Event
 
@@ -34,7 +35,18 @@ class CondIsMember : Condition() {
     }
 
     override fun check(e: Event?): Boolean {
-        return pattern == 0
+        val player = playerExpr.getSingle(e)!!
+        val isNot = pattern == 1
+
+        val resp = API.getUser(player.uniqueId)
+
+        // if "has not", returns true
+        // if "has", returns false
+        if(resp === null) return isNot
+
+        return if(isNot) {
+            !resp.isInGuild
+        } else resp.isInGuild
     }
 
     override fun toString(e: Event?, debug: Boolean): String {

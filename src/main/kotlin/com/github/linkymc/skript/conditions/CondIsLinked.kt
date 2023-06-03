@@ -5,6 +5,7 @@ import ch.njol.skript.lang.Condition
 import ch.njol.skript.lang.Expression
 import ch.njol.skript.lang.SkriptParser
 import ch.njol.util.Kleenean
+import com.github.linkymc.lib.API
 import org.bukkit.entity.Player
 import org.bukkit.event.Event
 
@@ -34,7 +35,21 @@ class CondIsLinked : Condition() {
     }
 
     override fun check(e: Event?): Boolean {
-        println("[Skript Integration] Current pattern $pattern")
+        val player = playerExpr.getSingle(e)!!
+
+        val resp = API.getUser(player.uniqueId)
+
+        if(resp === null) {
+            println("Since response was null, returning ${pattern != 0} (Pattern: $pattern)")
+            // If it's "has not linked", this will return true.
+            // If it's "has linked", this will return false
+            return pattern != 0
+        }
+
+        println("Response wasn't null, returning true!")
+
+        // If it's "has linked", this will return true
+        // If it's "has not linked", this will return false.
         return pattern == 0
     }
 

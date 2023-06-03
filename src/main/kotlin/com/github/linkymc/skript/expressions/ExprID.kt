@@ -6,6 +6,7 @@ import ch.njol.skript.lang.ExpressionType
 import ch.njol.skript.lang.SkriptParser
 import ch.njol.skript.lang.util.SimpleExpression
 import ch.njol.util.Kleenean
+import com.github.linkymc.lib.API
 import org.bukkit.entity.Player
 import org.bukkit.event.Event
 
@@ -34,7 +35,13 @@ class ExprID : SimpleExpression<String>() {
     }
 
     override fun get(e: Event): Array<out String?> {
-       return arrayOf("000000000000000")
+        val player = playerExpr.getSingle(e)!!
+
+        val resp = API.getUser(player.uniqueId)
+
+        if(resp === null) return arrayOf("")
+
+       return arrayOf(resp.discordId)
     }
 
     override fun getReturnType(): Class<String> {

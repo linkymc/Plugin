@@ -7,6 +7,7 @@ import kotlinx.serialization.json.Json
 import okhttp3.*
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.RequestBody.Companion.toRequestBody
+import java.util.UUID
 
 object API {
     @Serializable
@@ -24,7 +25,20 @@ object API {
         val status: String
     )
 
+    @Serializable
+    data class UserInfoResponse(
+        val success: Boolean,
+        val isInGuild: Boolean,
+        val id: String,
+        val createdAt: String,
+        val discordId: String,
+        val username: String,
+        val uuid: String,
+        val status: String
+    )
+
     private data class SessionStatusUpdate(val status: String)
+    private val apiURL = "http://127.0.0.1:3000/api"
 
     private fun Response.getText(): String {
         return this.body?.string() ?: ""
@@ -34,12 +48,13 @@ object API {
         return this.toRequestBody("application/json; charset=utf-8".toMediaType())
     }
 
-    fun getSession(id: String): SessionInformation? {
+    fun getUser(uuid: UUID): UserInfoResponse? {
+        println("[API] Getting user with UUID of $uuid")
         val apiKey = Linky.instance.config.getString("token")
 
         val client = OkHttpClient()
         val request = Request.Builder()
-            .url("http://192.168.254.68:3000/api/sessions/$id")
+            .url("$apiURL/users/$uuid")
             .header("Authorization", "Bearer $apiKey")
             .build()
 
@@ -49,6 +64,8 @@ object API {
             println(response.getText())
             return null
         }
+
+        println("[API] Request finished.")
 
         return Json.decodeFromString(response.getText())
     }
@@ -66,7 +83,7 @@ object API {
         """.trimIndent().toJSONBody()
 
         val request = Request.Builder()
-            .url("http://192.168.254.68:3000/api/sessions/$id")
+            .url("$apiURL/sessions/$id")
             .header("Authorization", "Bearer $apiKey")
             .patch(body)
             .build()
