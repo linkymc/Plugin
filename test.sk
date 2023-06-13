@@ -1,4 +1,0 @@
-command /test:
-    trigger:
-        if player has linked discord:
-            send "hello" to player
