@@ -14,3 +14,7 @@ linkRequest = """
 
 linkAccept = "<#bffbdb>✔ Successfully linked your Discord account!"
 linkDeny = "<#ff697b>✗ Successfully denied! This account won't annoy you anymore."
+
+linkCTA = "<#ffd4e3>Link your Discord account by joining the Discord and sending <b>/link</b>."
+
+unlink = "<#ffd4e3>Successfully unlinked."

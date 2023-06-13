@@ -20,6 +20,11 @@ object API {
     )
 
     @Serializable
+    data class UnlinkResponse(
+            val success: Boolean,
+    )
+
+    @Serializable
     data class SessionUpdateResponse(
         val success: Boolean,
         val status: String
@@ -56,6 +61,26 @@ object API {
             .url("$apiURL/users/$uuid")
             .header("Authorization", "Bearer $apiKey")
             .build()
+
+        val response = client.newCall(request).execute()
+
+        if (!response.isSuccessful) {
+            println(response.getText())
+            return null
+        }
+
+        return Json.decodeFromString(response.getText())
+    }
+
+    fun unlinkUser(uuid: UUID): UnlinkResponse? {
+        val apiKey = Linky.instance.config.getString("token")
+
+        val client = OkHttpClient()
+        val request = Request.Builder()
+                .url("$apiURL/users/$uuid")
+                .header("Authorization", "Bearer $apiKey")
+                .delete()
+                .build()
 
         val response = client.newCall(request).execute()
 
