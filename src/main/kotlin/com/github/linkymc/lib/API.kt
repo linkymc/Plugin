@@ -38,7 +38,7 @@ object API {
     )
 
     private data class SessionStatusUpdate(val status: String)
-    private val apiURL = "http://127.0.0.1:3000/api"
+    private val apiURL = "https://linky.astrid.sh/api"
 
     private fun Response.getText(): String {
         return this.body?.string() ?: ""
@@ -49,7 +49,6 @@ object API {
     }
 
     fun getUser(uuid: UUID): UserInfoResponse? {
-        println("[API] Getting user with UUID of $uuid")
         val apiKey = Linky.instance.config.getString("token")
 
         val client = OkHttpClient()
@@ -64,8 +63,6 @@ object API {
             println(response.getText())
             return null
         }
-
-        println("[API] Request finished.")
 
         return Json.decodeFromString(response.getText())
     }

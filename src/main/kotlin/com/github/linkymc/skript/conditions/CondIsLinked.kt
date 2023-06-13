@@ -40,13 +40,10 @@ class CondIsLinked : Condition() {
         val resp = API.getUser(player.uniqueId)
 
         if(resp === null) {
-            println("Since response was null, returning ${pattern != 0} (Pattern: $pattern)")
             // If it's "has not linked", this will return true.
             // If it's "has linked", this will return false
             return pattern != 0
         }
-
-        println("Response wasn't null, returning true!")
 
         // If it's "has linked", this will return true
         // If it's "has not linked", this will return false.
