@@ -17,4 +17,4 @@ linkDeny = "<#ff697b>✗ Successfully denied! This account won't annoy you anymo
 
 linkCTA = "<#ffd4e3>Link your Discord account by joining the Discord and sending <b>/link</b>."
 
-unlink = "<#ffd4e3>Successfully unlinked."
+unlinked = "<#ffd4e3>Successfully unlinked."
