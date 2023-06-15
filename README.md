@@ -17,36 +17,4 @@ Linky aims to improve upon this, by making the experience for both administrator
 
 ## Skript integration
 
-Linky integrates in Skript, so you can easily get Linky data.
-
-<details>
-    <summary>Get Discord ID</summary>
-<br/>
-  Fetches the Discord ID of a player
-
-```
-discord id of %player%
-```
-</details>
-
-<details>
-    <summary>Get Linked Status</summary>
-<br/>
-  Condition to check whether a player is linked or not
-
-```
-%player% (is|has) linked
-%player% (is|has) not linked
-```
-</details>
-
-<details>
-    <summary>Get Member Status</summary>
-<br/>
-  Condition to check whether a player is in your Discord server.
-
-```
-%player% is in [the] discord [server]
-%player% is not in [the] discord [server]
-```
-</details>
+Linky integrates in Skript, so you can easily get Linky data. If you're interested, you can view the docs on [SkriptHub](https://skripthub.net/docs/?addon=Linky)
