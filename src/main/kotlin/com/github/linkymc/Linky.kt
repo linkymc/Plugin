@@ -13,7 +13,9 @@ import java.io.File
 class Linky : FancyPlugin() {
     companion object {
         lateinit var instance: Linky
+          private set
         lateinit var channel: Channel
+          private set
     }
 
     override fun onEnable() {
